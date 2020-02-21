@@ -15,7 +15,6 @@ public class GetCapitalCityStepDefs {
 
     @Given("I hit the get call for the capital city")
     public void i_hit_the_get_call_for_the_capital_city() {
-
         RestAssured.baseURI = PropertiesReader.getProperty("config","baseUrl");
 
                               given().
@@ -43,7 +42,6 @@ public class GetCapitalCityStepDefs {
 
     @Then("I display the response on the console")
     public void i_display_the_response_on_the_console() {
-
         Response response = given()
                              .get();
         JSONArray jsonArray = new   JSONArray(response.body().asString());
@@ -53,7 +51,6 @@ public class GetCapitalCityStepDefs {
 
     @Then("I verify {string} presence in the response")
     public void i_verify_presence_in_the_response(String string) {
-
         Response response = given()
                              .get();
 
