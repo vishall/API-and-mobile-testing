@@ -11,7 +11,7 @@ import org.json.JSONArray;
 import utils.PropertiesReader;
 import static io.restassured.RestAssured.given;
 
-public class GetCapitalCityStepDefs {
+public class Section3StepDefs {
 
     @Given("I hit the get call for the capital city")
     public void i_hit_the_get_call_for_the_capital_city() {
