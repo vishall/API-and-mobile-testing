@@ -4,19 +4,21 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import pageobjects.Section2Page;
+import java.net.MalformedURLException;
 
+    public class Section2StepDefs extends BaseClass  {
 
-public class Section2StepDefs {
-
+    private Section2Page section2Page = new Section2Page(null);
 
     @Given("open the application")
-    public void open_the_application() {
-
+    public void open_the_application() throws MalformedURLException {
+        setUp();
     }
 
     @When("app is loaded successfully")
     public void app_is_loaded_successfully() {
-
+        section2Page.isAppLoaded();
     }
 
     @Then("verify the images and text is getting displayed correctly")
@@ -26,14 +28,12 @@ public class Section2StepDefs {
 
     @When("swipe the screen")
     public void swipe_the_screen() {
-
+        section2Page.swipeScreen();
     }
-
     @Then("should get navigate to correct {string}")
-    public void should_get_navigate_to_correct(String string) {
-
+    public void should_get_navigate_to_correct(String page) {
+        section2Page.navigateToScreen(page);
     }
-
 
     @And("click on get started button")
     public void click_on_get_started_button() {
