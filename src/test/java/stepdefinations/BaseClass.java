@@ -1,20 +1,21 @@
 package stepdefinations;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.appmanagement.ApplicationState;
 import io.appium.java_client.remote.MobileCapabilityType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.PropertiesReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.concurrent.TimeUnit;
 
 public class BaseClass {
 
     public static AppiumDriver driver;
+    public static ApplicationState state;
     private final String apk_path = PropertiesReader.getProperty("config","app_path");
 
     public void setUp() throws MalformedURLException {
@@ -31,8 +32,12 @@ public class BaseClass {
         caps.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
 
         driver = new AppiumDriver(new URL(PropertiesReader.getProperty("config","Appium_hub")),caps);
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.MILLISECONDS);
+        state = driver.queryAppState("com.youtility.test");
 
+    }
+
+    protected static void waitForElementToBeAvailable(By locator, int waitTime) {
+            new WebDriverWait(driver, waitTime).until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
     protected boolean isElementPresent(By by) {

@@ -15,48 +15,43 @@ import java.time.Duration;
 
     public class Section2Page extends BaseClass {
 
-    private BaseClass base;
-    private Section2Page section2Page;
+    protected BaseClass base;
+
+    public Section2Page(BaseClass baseClass) {
+
+            base = baseClass;
+    }
 
     public String ext = null;
     public By topHeading = By.id("com.youtility.test:id/tvTop");
     public By getStartedButton = By.id("com.youtility.test:id/btnGetStarted");
     public By appTour = By.id("com.youtility.test:id/pagerIndicator");
-    private final String homeScreenText = "home\nfinances";
-    private final String secondScreenText = "Switch providers";
-    private final String thirdScreenText = "bank accounts";
-
-    public Section2Page(BaseClass baseClass) {
-
-        base = baseClass;
-    }
+    protected final String homeScreen = "home finances";
+    protected final String homeScreenText = "home\nfinances";
+    protected final String secondScreenText = "Switch providers";
+    protected final String thirdScreenText = "bank accounts";
 
     public  void isAppLoaded(){
 
-        WebDriverWait wait = new WebDriverWait(driver,10);
-        wait.until(ExpectedConditions.visibilityOfElementLocated((topHeading)));
-
+        waitForElementToBeAvailable(topHeading,10);
         MobileElement topBanner = (MobileElement) driver.findElement(topHeading);
         ext = topBanner.getText();
-        Assert.assertTrue(ext.contains(homeScreenText));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(getStartedButton));
+        waitForElementToBeAvailable(getStartedButton,10);
         Assert.assertTrue(isElementPresent(getStartedButton));
-
-
     }
 
     public void swipeScreen() {
 
+        waitForElementToBeAvailable(topHeading,10);
+        MobileElement topBanner = (MobileElement) driver.findElement(topHeading);
+        ext = topBanner.getText();
         MobileElement elementIndicator = (MobileElement) driver.findElement(appTour);
-
-
         Point bannerPoint = elementIndicator.getLocation();
         // Get size of device screen
         Dimension screenSize = driver.manage().window().getSize();
         // Get start and end coordinates for horizontal swipe
         int startX = Math.toIntExact(Math.round(screenSize.getWidth() * 0.8));
         int endX = 0;
-
         TouchAction firstSwipe = new TouchAction(driver);
         firstSwipe
                 .press(PointOption.point(startX, bannerPoint.getY()))
@@ -64,18 +59,11 @@ import java.time.Duration;
                 .moveTo(PointOption.point(endX, bannerPoint.getY()))
                 .release();
         driver.performTouchAction(firstSwipe);
-
-        WebDriverWait wait = new WebDriverWait(driver,10);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(topHeading));
-
-        MobileElement topBanner = (MobileElement) driver.findElement(topHeading);
-        ext = topBanner.getText();
-
     }
 
     public void navigateToScreen(String page) {
 
-        if(page.equals(homeScreenText)){
+        if(page.equals(homeScreen)){
 
             Assert.assertTrue(ext.contains(homeScreenText));
         }
@@ -88,7 +76,6 @@ import java.time.Duration;
             swipeScreen();
             Assert.assertTrue(ext.contains(thirdScreenText));
             tearDown();
-
         }
 
     }
