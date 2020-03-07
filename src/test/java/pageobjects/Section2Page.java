@@ -7,8 +7,6 @@ import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import stepdefinations.BaseClass;
 import java.time.Duration;
@@ -31,18 +29,18 @@ import java.time.Duration;
     protected final String secondScreenText = "Switch providers";
     protected final String thirdScreenText = "bank accounts";
 
-    public  void isAppLoaded(){
+    public void isAppLoaded(){
 
-        waitForElementToBeAvailable(topHeading,10);
+        waitForElementToBeAvailable(topHeading);
         MobileElement topBanner = (MobileElement) driver.findElement(topHeading);
         ext = topBanner.getText();
-        waitForElementToBeAvailable(getStartedButton,10);
+        waitForElementToBeAvailable(getStartedButton);
         Assert.assertTrue(isElementPresent(getStartedButton));
     }
 
     public void swipeScreen() {
 
-        waitForElementToBeAvailable(topHeading,10);
+        waitForElementToBeAvailable(topHeading);
         MobileElement topBanner = (MobileElement) driver.findElement(topHeading);
         ext = topBanner.getText();
         MobileElement elementIndicator = (MobileElement) driver.findElement(appTour);
@@ -52,13 +50,13 @@ import java.time.Duration;
         // Get start and end coordinates for horizontal swipe
         int startX = Math.toIntExact(Math.round(screenSize.getWidth() * 0.8));
         int endX = 0;
-        TouchAction firstSwipe = new TouchAction(driver);
-        firstSwipe
+        TouchAction swipe = new TouchAction(driver);
+        swipe
                 .press(PointOption.point(startX, bannerPoint.getY()))
                 .waitAction(WaitOptions.waitOptions(Duration.ofMillis(500)))
                 .moveTo(PointOption.point(endX, bannerPoint.getY()))
                 .release();
-        driver.performTouchAction(firstSwipe);
+        driver.performTouchAction(swipe);
     }
 
     public void navigateToScreen(String page) {

@@ -20,24 +20,26 @@ public class BaseClass {
 
     public void setUp() throws MalformedURLException {
 
-        DesiredCapabilities caps = new DesiredCapabilities();
+            if(state==null) {
+            DesiredCapabilities caps = new DesiredCapabilities();
 
-        caps.setCapability(MobileCapabilityType.PLATFORM_NAME, "ANDROID");
-        caps.setCapability(MobileCapabilityType.PLATFORM_VERSION, "10.0");
-        caps.setCapability(MobileCapabilityType.UDID,"23f12ad4631c7ece");
-        caps.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT,50000);
-        caps.setCapability(MobileCapabilityType.APP, System.getProperty("user.dir")+ apk_path);
-        caps.setCapability(MobileCapabilityType.DEVICE_NAME,"Galaxy S9 +");
-        caps.setCapability("appPackage","com.youtility.test");
-        caps.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
+            caps.setCapability(MobileCapabilityType.PLATFORM_NAME, "ANDROID");
+            caps.setCapability(MobileCapabilityType.PLATFORM_VERSION, "10.0");
+            caps.setCapability(MobileCapabilityType.UDID, "23f12ad4631c7ece");
+            caps.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, 50000);
+            caps.setCapability(MobileCapabilityType.APP, System.getProperty("user.dir") + apk_path);
+            caps.setCapability(MobileCapabilityType.DEVICE_NAME, "Galaxy S9 +");
+            caps.setCapability("appPackage", "com.youtility.test");
+            caps.setCapability(MobileCapabilityType.AUTOMATION_NAME, "UiAutomator2");
 
-        driver = new AppiumDriver(new URL(PropertiesReader.getProperty("config","Appium_hub")),caps);
-        state = driver.queryAppState("com.youtility.test");
+            driver = new AppiumDriver(new URL(PropertiesReader.getProperty("config", "Appium_hub")), caps);
+            state = driver.queryAppState("com.youtility.test");
+            }
 
     }
 
-    protected static void waitForElementToBeAvailable(By locator, int waitTime) {
-            new WebDriverWait(driver, waitTime).until(ExpectedConditions.presenceOfElementLocated(locator));
+    protected static void waitForElementToBeAvailable(By locator) {
+            new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
     protected boolean isElementPresent(By by) {

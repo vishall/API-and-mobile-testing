@@ -13,7 +13,6 @@ import java.net.MalformedURLException;
 
     @Given("open the application")
     public void open_the_application() throws MalformedURLException {
-        if(state==null)
         setUp();
     }
 
