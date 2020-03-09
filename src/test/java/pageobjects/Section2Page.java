@@ -24,10 +24,10 @@ import java.time.Duration;
     public By topHeading = By.id("com.youtility.test:id/tvTop");
     public By getStartedButton = By.id("com.youtility.test:id/btnGetStarted");
     public By appTour = By.id("com.youtility.test:id/pagerIndicator");
-    protected final String homeScreen = "home finances";
-    protected final String homeScreenText = "home\nfinances";
-    protected final String secondScreenText = "Switch providers";
-    protected final String thirdScreenText = "bank accounts";
+    final String homeScreen = "home finances";
+    final String homeScreenText = "home\nfinances";
+    final String secondScreenText = "Switch providers";
+    final String thirdScreenText = "bank accounts";
 
     public void isAppLoaded(){
 
