@@ -2,7 +2,7 @@
 
 ### Prerequisite for this project 
 
-Should have Java 1.8 and gradle 4+ on the system
+Should have Java 1.8 and gradle 4+ on the system and for mobile app you should have apk installed on the connected devices.
 
 ### Step by Step guide
 
